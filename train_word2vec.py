@@ -19,7 +19,7 @@ logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
 # 语料库
-corpus = '/home/ubuntu/文档/hjcen/corpus/10G_weibo/merge_10G_weibo_clean.txt.seg'
+corpus = 'data/comments_jieba.txt'
 # output_path = os.path.join(config.get_data_path(), '10G_16dim_train.pkl')
 logging.info('Initialized')
 
@@ -34,7 +34,7 @@ def train(dim):
 
     logger.info('Saving model...')
 
-    output_path = os.path.join(config.get_data_path(), str(dim) + 'dim_10G_train.pkl')
+    output_path = os.path.join("data", 'dim_Douban.pkl')
     joblib.dump(w2v, output_path)
     logger.info('Model saved')
 
@@ -44,12 +44,10 @@ def test(output_path):
     # print(w2v['知乎'])
     # print(w2v['学习'])
     # print(Word2Vec(w2v).most_similar(positive=['知乎', '微博'], negative=['酒店']))
-    print(w2v['知乎 '])
+    print(w2v[u'哈哈'])
     print('pass')
 
 
 if __name__ == '__main__':
-    # train(16)
-    # train(32)
-    #test_model_path = os.path.join(config.get_project_dir(), 'word2vec_model', '16dim_10G_train.pkl')
-    #test(test_model_path)
+    #train(32)
+    test("data/dim_Douban.pkl")
