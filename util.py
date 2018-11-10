@@ -3,6 +3,7 @@
 import jieba
 import re
 import numpy as np 
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 
@@ -101,6 +102,9 @@ def get_which_trash(datas):
         break
     return train_index_return, trash_index_return
 
+def word2vector():
+   vec = joblib.load("data/dim_Douban_with_trash.pkl")
+   print(type(vec["操你妈"]))
+
 if __name__ == "__main__":
-    jieba_comments("data/commit_train.txt", "data/train_data/commit_train_jieba.txt")
-    jieba_comments("data/commit_test.txt", "data/test_data/commit_test_jieba.txt")
+    word2vector()

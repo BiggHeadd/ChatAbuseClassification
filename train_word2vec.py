@@ -19,7 +19,7 @@ logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
 # 语料库
-corpus = 'data/comments_jieba.txt'
+corpus = 'data/total_commit_to_vec.txt'
 # output_path = os.path.join(config.get_data_path(), '10G_16dim_train.pkl')
 logging.info('Initialized')
 
@@ -34,7 +34,7 @@ def train(dim):
 
     logger.info('Saving model...')
 
-    output_path = os.path.join("data", 'dim_Douban.pkl')
+    output_path = os.path.join("data", 'dim_Douban_with_trash.pkl')
     joblib.dump(w2v, output_path)
     logger.info('Model saved')
 
@@ -44,10 +44,10 @@ def test(output_path):
     # print(w2v['知乎'])
     # print(w2v['学习'])
     # print(Word2Vec(w2v).most_similar(positive=['知乎', '微博'], negative=['酒店']))
-    print(w2v[u'哈哈'])
+    print(w2v[u'操你妈'])
     print('pass')
 
 
 if __name__ == '__main__':
     #train(32)
-    test("data/dim_Douban.pkl")
+    test("data/dim_Douban_with_trash.pkl")
