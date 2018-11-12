@@ -103,8 +103,53 @@ def get_which_trash(datas):
     return train_index_return, trash_index_return
 
 def word2vector():
+   """
+   translate the sentences from training and testing set to the vector and save as np type
+   return None
+   """
    vec = joblib.load("data/dim_Douban_with_trash.pkl")
-   print(type(vec["操你妈"]))
+
+   #training samples
+   datas = read_data("data/train_data/commit_train_jieba.txt")
+   x, y = split_x_y(datas)
+   x_vector = get_word_vectors(x, vec)
+   np.save("data/train_data/x_train.npy", x_vector)
+   np.save("data/train_data/y_train.npy", y)
+
+   #testing samples
+   tests = read_data("data/test_data/commit_test_jieba.txt")
+   x, y = split_x_y(tests)
+   test_x_vector = get_word_vectors(x, vec)
+   np.save("data/test_data/x_test.npy", test_x_vector)
+   np.save("data/test_data/y_test.npy", y)
+
+def get_word_vectors(sentences, vector):    
+    x_vector = []
+    for sentence in sentences:
+        tmp_vec = []
+        for word in sentence:
+            if word not in vector:
+                if word == " ":
+                    continue
+                tmp_vec.append(vector[u"啊"])
+            else:
+                tmp_vec.append(vector[word])
+        x_vector.append(tmp_vec)
+    return x_vector
+
+def split_x_y(datas):
+    """
+    datas: x\ty
+    get the x and y
+    return x, y
+    """
+    x = []
+    y = []
+    for data in datas:
+        x_tmp, y_tmp = data.split("\t")
+        x.append(x_tmp)
+        y.append(y_tmp)
+    return x, y
 
 if __name__ == "__main__":
     word2vector()
